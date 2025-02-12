@@ -112,6 +112,8 @@ const EmailDialog = ({ language, setShowEmailDialog }: { language: string; setSh
   );
 };
 
+const getOptimizedImageUrl = (url: string) => `${url}?auto=format&fit=crop&w=1920&h=1080&q=80`;
+
 const OnboardingPage = () => {
   const [language, setLanguage] = useState('en');
   const [showEmailDialog, setShowEmailDialog] = useState(false);
@@ -141,37 +143,43 @@ const OnboardingPage = () => {
           title: "Streamlined Features",
           subtitle: "Simple Yet Powerful",
           description: "Designed specifically for small businesses, our solution includes only the necessary features, avoiding the complexity of traditional ERP and MES systems.",
-          icon: <BarChart2 className="w-12 h-12 text-blue-600" />
+          icon: <BarChart2 className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40")
         },
         {
           title: "Cost-Effective",
           subtitle: "Affordable Excellence",
           description: "By eliminating unnecessary features, we offer a cost-effective solution tailored to the needs of small companies.",
-          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+          icon: <DollarSign className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c")
         },        
         {
           title: "Digital Inspection Records",
           subtitle: "Government-Compliant Storage",
           description: "Easily convert paper documents to digital format using OCR technology. Store and manage all government inspection records with instant search capability.",
-          icon: <FileText className="w-12 h-12 text-blue-600" />
+          icon: <FileText className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1450101499163-c8848c66ca85")
         },
         {
           title: "Automated Collection",
           subtitle: "Real-time Data Integration",
           description: "Automatically collect data from various sources including PLC systems and third-party tools. Integrate with your existing software to ensure seamless data flow.",
-          icon: <Database className="w-12 h-12 text-blue-600" />
+          icon: <Database className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1551288049-bebda4e38f71")
         },
         {
           title: "AI-Driven Insights",
           subtitle: "Smart Manufacturing",
           description: "Analyze all collected data using AI to provide actionable insights. Receive notifications of potential issues and suggestions to optimize your processes.",
-          icon: <BrainCircuit className="w-12 h-12 text-blue-600" />
+          icon: <BrainCircuit className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1551434678-e076c223a692")
         },
         {
           title: "Multi-Platform Access",
           subtitle: "Work from Anywhere",
           description: "Access your business data anytime, anywhere. Our solution works seamlessly across web browsers and mobile devices, keeping you connected on the go.",
-          icon: <Dices className="w-12 h-12 text-blue-600" />
+          icon: <Dices className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1512486130939-2c4f79935e4f")
         }
       ]
     },
@@ -194,37 +202,43 @@ const OnboardingPage = () => {
           title: "간소화된 기능",
           subtitle: "단순하지만 강력한",
           description: "소규모 기업을 위해 설계된 당사의 솔루션은 기존 ERP 및 MES 시스템의 복잡성을 피하고 필요한 기능만을 포함합니다.",
-          icon: <BarChart2 className="w-12 h-12 text-blue-600" />
+          icon: <BarChart2 className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40")
         },
         {
           title: "비용 효율적인 솔루션",
           subtitle: "합리적인 가격과 우수성",
           description: "불필요한 기능을 제거하여 중소기업의 요구에 맞춘 비용 효율적인 솔루션을 제공합니다.",
-          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+          icon: <DollarSign className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c")
         },        
         {
           title: "점검 기록 디지털화",
           subtitle: "정부 규정 준수 보관",
           description: "OCR 기술로 종이 문서를 쉽게 디지털화하고, 모든 정부 규제 필요 문서들을 즉시 검색 가능한 형태로 보관합니다.",
-          icon: <FileText className="w-12 h-12 text-blue-600" />
+          icon: <FileText className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1450101499163-c8848c66ca85")
         },
         {
           title: "자동 데이터 수집",
           subtitle: "실시간 데이터 통합",
           description: "PLC 시스템과 타사 도구들로부터 데이터를 자동으로 수집합니다. 기존 사용 중인 소프트웨어와 통합하여 원활한 데이터 흐름을 보장합니다.",
-          icon: <Database className="w-12 h-12 text-blue-600" />
+          icon: <Database className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1551288049-bebda4e38f71")
         },
         {
           title: "AI 기반 인사이트",
           subtitle: "스마트 제조",
           description: "수집된 모든 데이터를 AI로 분석하여 실행 가능한 인사이트를 제공합니다. 잠재 문제에 대한 알림과 모든 프로세스 최적화를 위한 제안을 받으세요.",
-          icon: <BrainCircuit className="w-12 h-12 text-blue-600" />
+          icon: <BrainCircuit className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1551434678-e076c223a692")
         },
         {
           title: "멀티플랫폼 지원",
           subtitle: "언제 어디서나 접속 가능",
           description: "웹 브라우저와 모바일 기기에서 완벽하게 작동하여 언제 어디서나 비즈니스 데이터에 접근할 수 있습니다.",
-          icon: <Dices className="w-12 h-12 text-blue-600" />
+          icon: <Dices className="w-12 h-12 text-blue-600" />,
+          image: getOptimizedImageUrl("https://images.unsplash.com/photo-1512486130939-2c4f79935e4f")
         }
       ]
     }
@@ -293,7 +307,7 @@ const OnboardingPage = () => {
             <div className="container mx-auto px-4">
               <div className={`flex flex-col ${
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              } items-center gap-12`}>
+              } items-center gap-12 max-w-7xl mx-auto`}>
                 <AnimatedSection direction={index % 2 === 0 ? 'left' : 'right'}>
                   <div className="flex-1">
                     <div className="max-w-xl">
@@ -311,12 +325,13 @@ const OnboardingPage = () => {
                   </div>
                 </AnimatedSection>
                 <AnimatedSection direction={index % 2 === 0 ? 'right' : 'left'}>
-                  <div className="flex-1">
+                  <div className="flex-1 max-w-2xl">
                     <div className="aspect-video bg-gray-200 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
                       <img
-                        src={`https://images.ctfassets.net/hrltx12pl8hq/7JnR6tVVwDyUM8Cbci3GtJ/bf74366cff2ba271471725d0b0ef418c/shutterstock_376532611-og.jpg`}
+                        src={section.image}
                         alt={section.title}
                         className="w-full h-full object-cover rounded-xl"
+                        loading="lazy"
                       />
                     </div>
                   </div>
