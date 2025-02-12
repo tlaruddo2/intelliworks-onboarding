@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, FileText, BarChart2, Database, BrainCircuit, DollarSign, Mail, Phone, MapPin, Linkedin, Lightbulb, Dices } from 'lucide-react';
+import { ChevronDown, FileText, BarChart2, Database, BrainCircuit, DollarSign, Mail, Phone, MapPin, Linkedin, Dices } from 'lucide-react';
 
 const AnimatedSection = ({ children, direction = 'right' }: { children: React.ReactNode; direction?: 'left' | 'right' | 'bottom' }) => {
   const elementRef = useRef<HTMLDivElement | null>(null);
