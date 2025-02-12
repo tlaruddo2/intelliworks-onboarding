@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, FileText, BarChart2, Database, BrainCircuit, DollarSign, Mail, Phone, MapPin, Linkedin } from 'lucide-react';
+import { ChevronDown, FileText, BarChart2, Database, BrainCircuit, DollarSign, Mail, Phone, MapPin, Linkedin, Lightbulb, Dices } from 'lucide-react';
 
 const AnimatedSection = ({ children, direction = 'right' }: { children: React.ReactNode; direction?: 'left' | 'right' | 'bottom' }) => {
   const elementRef = useRef<HTMLDivElement | null>(null);
@@ -50,9 +50,76 @@ const AnimatedSection = ({ children, direction = 'right' }: { children: React.Re
   );
 };
 
+const EmailDialog = ({ language, setShowEmailDialog }: { language: string; setShowEmailDialog: (show: boolean) => void }) => {
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    window.location.href = `mailto:intelliworks.team@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    setShowEmailDialog(false);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">
+          {language === 'en' ? 'Send Email' : '이메일 보내기'}
+        </h3>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {language === 'en' ? 'Subject' : '제목'}
+            </label>
+            <input
+              type="text"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              className="w-full px-3 py-2 border bg-blue-50 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {language === 'en' ? 'Message' : '메시지'}
+            </label>
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              rows={4}
+              className="w-full px-3 py-2 border bg-blue-50 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setShowEmailDialog(false)}
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              {language === 'en' ? 'Cancel' : '취소'}
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              {language === 'en' ? 'Send' : '보내기'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 const OnboardingPage = () => {
   const [language, setLanguage] = useState('en');
   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const firstFeatureRef = useRef<HTMLElement>(null);
+
+  const scrollToFirstFeature = () => {
+    firstFeatureRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const content = {
     en: {
@@ -60,8 +127,8 @@ const OnboardingPage = () => {
       headline: {
         line1: "Make Your Office Job Easier",
         line2: "and Go Home Earlier.",
-        line3: "IntelliWorks",
-        line4: "is a cloud-based manufacturing execution system (MES) ",
+        line3: "IntelliWorks is an AI-powered solution for small companies,",
+        line4: "simplifying document to resource management",
       },
       contact: {
         email: "intelliworks.team@gmail.com",
@@ -71,44 +138,50 @@ const OnboardingPage = () => {
       },
       sections: [
         {
-          title: "Document Generation",
-          subtitle: "Paperless Transformation",
-          description: "Easily convert paper documents into digital format using OCR technology, enabling efficient tracking and management.",
-          icon: <FileText className="w-12 h-12 text-blue-600" />
-        },
-        {
           title: "Streamlined Features",
           subtitle: "Simple Yet Powerful",
           description: "Designed specifically for small businesses, our solution includes only the necessary features, avoiding the complexity of traditional ERP and MES systems.",
           icon: <BarChart2 className="w-12 h-12 text-blue-600" />
         },
         {
+          title: "Cost-Effective",
+          subtitle: "Affordable Excellence",
+          description: "By eliminating unnecessary features, we offer a cost-effective solution tailored to the needs of small companies.",
+          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+        },        
+        {
+          title: "Digital Inspection Records",
+          subtitle: "Government-Compliant Storage",
+          description: "Easily convert paper documents to digital format using OCR technology. Store and manage all government inspection records with instant search capability.",
+          icon: <FileText className="w-12 h-12 text-blue-600" />
+        },
+        {
           title: "Automated Collection",
           subtitle: "Real-time Data Integration",
-          description: "Automatically collect manufacturing data through PLC integration, reducing manual input and enhancing accuracy.",
+          description: "Automatically collect data from various sources including PLC systems and third-party tools. Integrate with your existing software to ensure seamless data flow.",
           icon: <Database className="w-12 h-12 text-blue-600" />
         },
         {
           title: "AI-Driven Insights",
           subtitle: "Smart Manufacturing",
-          description: "Analyze all collected data using AI to provide actionable insights. Receive notifications of potential issues and suggestions to optimize your manufacturing processes.",
+          description: "Analyze all collected data using AI to provide actionable insights. Receive notifications of potential issues and suggestions to optimize your processes.",
           icon: <BrainCircuit className="w-12 h-12 text-blue-600" />
         },
         {
-          title: "Cost-Effective",
-          subtitle: "Affordable Excellence",
-          description: "By eliminating unnecessary features, we offer a cost-effective solution tailored to the needs of small manufacturing companies.",
-          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+          title: "Multi-Platform Access",
+          subtitle: "Work from Anywhere",
+          description: "Access your business data anytime, anywhere. Our solution works seamlessly across web browsers and mobile devices, keeping you connected on the go.",
+          icon: <Dices className="w-12 h-12 text-blue-600" />
         }
       ]
     },
     ko: {
       productName: "인텔리웍스",
       headline: {
-        line1: "사무 업무를 더 쉽게 처리하고",
-        line2: "일찍 귀가하세요.",
-        line3: "IntelliWorks",
-        line4: "는 클라우드 기반의 제조 실행 시스템(MES)으로, ", 
+        line1: "업무는 더 쉽게,",
+        line2: "퇴근은 더 빠르게",
+        line3: "중소기업을 위한 AI 기반 솔루션,",
+        line4: "문서와 데이터 관리를 간단하게",
       },
       contact: {
         email: "intelliworks.team@gmail.com",
@@ -118,99 +191,43 @@ const OnboardingPage = () => {
       },
       sections: [
         {
-          title: "문서 생성",
-          subtitle: "페이퍼리스 전환",
-          description: "OCR 기술을 사용하여 종이 문서를 디지털 형식으로 쉽게 변환하여 효율적인 추적 및 관리를 가능하게 합니다.",
-          icon: <FileText className="w-12 h-12 text-blue-600" />
-        },
-        {
           title: "간소화된 기능",
           subtitle: "단순하지만 강력한",
           description: "소규모 기업을 위해 설계된 당사의 솔루션은 기존 ERP 및 MES 시스템의 복잡성을 피하고 필요한 기능만을 포함합니다.",
           icon: <BarChart2 className="w-12 h-12 text-blue-600" />
         },
         {
+          title: "비용 효율적인 솔루션",
+          subtitle: "합리적인 가격과 우수성",
+          description: "불필요한 기능을 제거하여 중소기업의 요구에 맞춘 비용 효율적인 솔루션을 제공합니다.",
+          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+        },        
+        {
+          title: "점검 기록 디지털화",
+          subtitle: "정부 규정 준수 보관",
+          description: "OCR 기술로 종이 문서를 쉽게 디지털화하고, 모든 정부 규제 필요 문서들을 즉시 검색 가능한 형태로 보관합니다.",
+          icon: <FileText className="w-12 h-12 text-blue-600" />
+        },
+        {
           title: "자동 데이터 수집",
           subtitle: "실시간 데이터 통합",
-          description: "PLC 통합을 통해 제조 데이터를 자동으로 수집하여 수동 입력을 줄이고 정확성을 높입니다.",
+          description: "PLC 시스템과 타사 도구들로부터 데이터를 자동으로 수집합니다. 기존 사용 중인 소프트웨어와 통합하여 원활한 데이터 흐름을 보장합니다.",
           icon: <Database className="w-12 h-12 text-blue-600" />
         },
         {
           title: "AI 기반 인사이트",
           subtitle: "스마트 제조",
-          description: "수집된 모든 데이터를 AI로 분석하여 실행 가능한 인사이트를 제공합니다. 잠재적인 문제에 대한 알림과 제조 프로세스 최적화를 위한 제안을 받으세요.",
+          description: "수집된 모든 데이터를 AI로 분석하여 실행 가능한 인사이트를 제공합니다. 잠재 문제에 대한 알림과 모든 프로세스 최적화를 위한 제안을 받으세요.",
           icon: <BrainCircuit className="w-12 h-12 text-blue-600" />
         },
         {
-          title: "비용 효율적인 솔루션",
-          subtitle: "합리적인 가격의 우수성",
-          description: "불필요한 기능을 제거하여 소규모 제조업체의 요구에 맞춘 비용 효율적인 솔루션을 제공합니다.",
-          icon: <DollarSign className="w-12 h-12 text-blue-600" />
+          title: "멀티플랫폼 지원",
+          subtitle: "언제 어디서나 접속 가능",
+          description: "웹 브라우저와 모바일 기기에서 완벽하게 작동하여 언제 어디서나 비즈니스 데이터에 접근할 수 있습니다.",
+          icon: <Dices className="w-12 h-12 text-blue-600" />
         }
       ]
     }
-  };
-
-  const EmailDialog = () => {
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      window.location.href = `mailto:intelliworks.team@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-      setShowEmailDialog(false);
-    };
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-lg p-6 max-w-md w-full">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
-            {language === 'en' ? 'Send Email' : '이메일 보내기'}
-          </h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {language === 'en' ? 'Subject' : '제목'}
-              </label>
-              <input
-                type="text"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {language === 'en' ? 'Message' : '메시지'}
-              </label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setShowEmailDialog(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-              >
-                {language === 'en' ? 'Cancel' : '취소'}
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                {language === 'en' ? 'Send' : '보내기'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -256,7 +273,10 @@ const OnboardingPage = () => {
                 <div className='mb-2'>{content[language as keyof typeof content].headline.line3}</div>
                 <div className="mt-1">{content[language as keyof typeof content].headline.line4}</div>
               </h3>              
-              <ChevronDown className="w-8 h-8 text-blue-600 mx-auto mt-12 animate-bounce" />
+              <ChevronDown 
+                className="w-8 h-8 text-blue-600 mx-auto mt-20 animate-bounce cursor-pointer hover:text-blue-700 transition-colors" 
+                onClick={scrollToFirstFeature}
+              />
             </div>
           </AnimatedSection>
         </section>
@@ -264,6 +284,7 @@ const OnboardingPage = () => {
         {/* Feature Sections */}
         {content[language as keyof typeof content].sections.map((section, index) => (
           <section
+            ref={index === 0 ? firstFeatureRef : undefined}
             key={index}
             className={`min-h-screen flex items-center justify-center py-20 w-full ${
               index % 2 === 0 ? 'bg-white' : 'bg-blue-50'
@@ -318,13 +339,13 @@ const OnboardingPage = () => {
                     ? "Have questions? We'd love to hear from you."
                     : "궁금하신 점이 있으신가요? 언제든 문의해 주세요."}
                 </p>
-                <a
-                  href="mailto:intelliworks.team@gmail.com"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 text-lg font-semibold"
+                <button
+                    onClick={() => setShowEmailDialog(true)}
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 text-lg font-semibold"
                 >
                   <Mail className="w-5 h-5" />
                   {language === 'en' ? 'Send us an email' : '이메일 보내기'}
-                </a>
+                </button>
               </div>
             </AnimatedSection>
           </div>
@@ -373,7 +394,7 @@ const OnboardingPage = () => {
         </footer>
       </div>
 
-      {showEmailDialog && <EmailDialog />}
+      {showEmailDialog && <EmailDialog language={language} setShowEmailDialog={setShowEmailDialog} />}
     </div>
   );
 };
